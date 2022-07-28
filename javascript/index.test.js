@@ -1,13 +1,13 @@
 const { Inventory, Item } = require('./index.js');
 
-describe('Inventory', () => {
-    function addItemAndUpdatePrice(itemName, sellBy, price) {
-        const items = [new Item(itemName, sellBy, price)];
-        inventory = new Inventory(items)
-        inventory.updatePrice();
-        return items[0];
-    }
+function addItemAndUpdatePrice(itemName, sellBy, price) {
+    const item = new Item(itemName, sellBy, price);
+    const inventory = new Inventory([item]);
+    inventory.updatePrice();
+    return item;
+}
 
+describe('Normal Items', () => {
     test('reduces price and sellBy for normal items', () => {
         updatedItem = addItemAndUpdatePrice('Normal Item', 10, 20);
         expect(updatedItem.sellBy).toBe(9);
@@ -23,20 +23,9 @@ describe('Inventory', () => {
         updatedItem = addItemAndUpdatePrice('Normal Item', 10, 0);
         expect(updatedItem.price).toBe(0);
     });
+}); 
 
-    test('increases price for Fine Art', () => {
-        updatedItem = addItemAndUpdatePrice('Fine Art', 10, 20);
-        expect(updatedItem.price).toBe(21);
-    });
-
-    test('does not allow price of appreciating items to exceed 50', () => {
-        updatedItem = addItemAndUpdatePrice('Fine Art', 10, 50);
-        expect(updatedItem.price).toBe(50);
-
-        updatedItem = addItemAndUpdatePrice('Concert Tickets', 10, 50);
-        expect(updatedItem.price).toBe(50);
-    });
-
+describe('Gold Coins', () => {
     test('does not allow gold coin price to exceed 80', () => {
         updatedItem = addItemAndUpdatePrice('Gold Coins', 10, 80);
         expect(updatedItem.price).toBe(80);
@@ -45,6 +34,26 @@ describe('Inventory', () => {
     test('does not reduce sellBy time for gold coins', () => {
         updatedItem = addItemAndUpdatePrice('Gold Coins', 10, 80);
         expect(updatedItem.sellBy).toBe(10);
+    });
+}); 
+
+describe('Fine Art', () => {
+    test('increases price for Fine Art', () => {
+        updatedItem = addItemAndUpdatePrice('Fine Art', 10, 20);
+        expect(updatedItem.price).toBe(21);
+    });
+
+    test('does not allow price of appreciating items to exceed 50', () => {
+        updatedItem = addItemAndUpdatePrice('Fine Art', 10, 50);
+        expect(updatedItem.price).toBe(50);
+    });
+}); 
+
+describe('Concert Tickets', () => {
+
+    test('does not allow price of appreciating items to exceed 50', () => {
+        updatedItem = addItemAndUpdatePrice('Concert Tickets', 10, 50);
+        expect(updatedItem.price).toBe(50);
     });
 
     test('increases price for Concert Tickets by 1 when more than 10 days before sellBy', () => {
