@@ -57,27 +57,27 @@ describe('Fine Art', () => {
 
 describe('Concert Tickets', () => {
     test('does not allow price of appreciating items to exceed 50', () => {
-        updatedItem = addItemAndUpdatePrice('Concert Tickets', 10, 50);
+        updatedItem = addItemAndUpdatePrice_refactor('Concert Tickets', 10, 50);
         expect(updatedItem.price).toBe(50);
     });
 
     test('increases price for Concert Tickets by 1 when more than 10 days before sellBy', () => {
-        updatedItem = addItemAndUpdatePrice('Concert Tickets', 12, 20);
+        updatedItem = addItemAndUpdatePrice_refactor('Concert Tickets', 12, 20);
         expect(updatedItem.price).toBe(21);
     });
 
     test('increases price for Concert Tickets by 2 when between 6 and 10 days before sellBy', () => {
-        updatedItem = addItemAndUpdatePrice('Concert Tickets', 7, 20);
+        updatedItem = addItemAndUpdatePrice_refactor('Concert Tickets', 7, 20);
         expect(updatedItem.price).toBe(22);
     });
 
     test('increases price for Concert Tickets by 3 when less than 6 days before sellBy', () => {
-        updatedItem = addItemAndUpdatePrice('Concert Tickets', 5, 20);
+        updatedItem = addItemAndUpdatePrice_refactor('Concert Tickets', 5, 20);
         expect(updatedItem.price).toBe(23);
     });
 
     test('reduces price to 0 when sellBy for Concert Tickets is zero', () => {
-        updatedItem = addItemAndUpdatePrice('Concert Tickets', 0, 20);
+        updatedItem = addItemAndUpdatePrice_refactor('Concert Tickets', 0, 20);
         expect(updatedItem.price).toBe(0);
     });
 });

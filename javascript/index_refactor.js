@@ -17,6 +17,17 @@ const updateTicket = (item) => {
   return new Item(item.name, item.sellBy - 1, getTicketPrice(item));
 };
 
+function getTicketPrice (item) {
+  const nextSellBy = item.sellBy -1;
+  if(nextSellBy < 0) return 0;
+  if(nextSellBy < 6) return limit(item.price + 3);
+  if(nextSellBy < 11) return limit(item.price + 2);
+  if(nextSellBy < 50) return limit(item.price + 1);
+  return item.price;
+}
+
+const limit = (price) => price > 50 ? 50 : price;
+
 const updateArt = (item) => {
   let price = item.price;
   if (item.price + 1 < MAX_PRICE) price++;
@@ -27,9 +38,10 @@ const updateGold = (item) => new Item(item.name, item.sellBy, GOLD_PRICE);
 
 //Add any new item types here with its own separate update function
 const specialItemList = {
-  "Normal Item": updateNormalItem,
   "Gold Coins": updateGold,
   "Fine Art": updateArt,
+  "Concert Tickets": updateTicket,
+  "Normal Item": updateNormalItem,
 };
 
 const updatePrice = (item) => {
