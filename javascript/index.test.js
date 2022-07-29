@@ -1,10 +1,9 @@
-const { Inventory, Item } = require('./index.js');
+const { Item } = require('./index.js');
+const { updatePrices } = require('.');
 
 function addItemAndUpdatePrice(itemName, sellBy, price) {
     const item = new Item(itemName, sellBy, price);
-    const inventory = new Inventory([item]);
-    inventory.updatePrice();
-    return item;
+    return updatePrices([item])[0];
 }
 
 describe('Normal Items', () => {
@@ -50,7 +49,6 @@ describe('Fine Art', () => {
 }); 
 
 describe('Concert Tickets', () => {
-
     test('does not allow price of appreciating items to exceed 50', () => {
         updatedItem = addItemAndUpdatePrice('Concert Tickets', 10, 50);
         expect(updatedItem.price).toBe(50);
