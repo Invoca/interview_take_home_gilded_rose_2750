@@ -13,12 +13,23 @@ const updateNormalItem = (item) => {
   return new Item(item.name, item.sellBy - 1, price);
 };
 
+const updateTicket = (item) => {
+  return new Item(item.name, item.sellBy - 1, getTicketPrice(item));
+};
+
+const updateArt = (item) => {
+  let price = item.price;
+  if (item.price + 1 < MAX_PRICE) price++;
+  return new Item(item.name, item.sellBy - 1, price);
+};
+
 const updateGold = (item) => new Item(item.name, item.sellBy, GOLD_PRICE);
 
 //Add any new item types here with its own separate update function
 const specialItemList = {
-  "Gold Coins": updateGold,
   "Normal Item": updateNormalItem,
+  "Gold Coins": updateGold,
+  "Fine Art": updateArt,
 };
 
 const updatePrice = (item) => {

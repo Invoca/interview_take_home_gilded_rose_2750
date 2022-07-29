@@ -45,18 +45,17 @@ describe('Gold Coins', () => {
 
 describe('Fine Art', () => {
     test('increases price for Fine Art', () => {
-        updatedItem = addItemAndUpdatePrice('Fine Art', 10, 20);
+        updatedItem = addItemAndUpdatePrice_refactor('Fine Art', 10, 20);
         expect(updatedItem.price).toBe(21);
     });
 
     test('does not allow price of appreciating items to exceed 50', () => {
-        updatedItem = addItemAndUpdatePrice('Fine Art', 10, 50);
+        updatedItem = addItemAndUpdatePrice_refactor('Fine Art', 10, 50);
         expect(updatedItem.price).toBe(50);
     });
 }); 
 
 describe('Concert Tickets', () => {
-
     test('does not allow price of appreciating items to exceed 50', () => {
         updatedItem = addItemAndUpdatePrice('Concert Tickets', 10, 50);
         expect(updatedItem.price).toBe(50);
