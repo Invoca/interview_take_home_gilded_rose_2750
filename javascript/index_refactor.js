@@ -14,15 +14,15 @@ const updateNormalItem = (item) => {
 };
 
 const updateTicket = (item) => {
-  return new Item(item.name, item.sellBy - 1, getTicketPrice(item));
+  return new Item(item.name, item.sellBy - 1, limit(getTicketPrice(item)));
 };
 
 function getTicketPrice (item) {
-  const nextSellBy = item.sellBy -1;
+  const nextSellBy = item.sellBy - 1;
   if(nextSellBy < 0) return 0;
-  if(nextSellBy < 6) return limit(item.price + 3);
-  if(nextSellBy < 11) return limit(item.price + 2);
-  if(nextSellBy < 50) return limit(item.price + 1);
+  if(nextSellBy < 6) return item.price + 3;
+  if(nextSellBy < 11) return item.price + 2;
+  if(nextSellBy < 50) return item.price + 1;
   return item.price;
 }
 
