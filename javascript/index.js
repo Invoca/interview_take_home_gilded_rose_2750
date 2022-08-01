@@ -13,6 +13,16 @@ const updateNormalItem = (item) => {
   return new Item(item.name, item.sellBy - 1, price);
 };
 
+const updateFlowers = (item) => {
+  let price = item.price;
+  if (item.sellBy - 1 < 0) {
+    if (item.price - (2 * EXP_RATE) > 0) price -= (2 * EXP_RATE); //Ensure price doesn't go negative
+  } else {
+    if (item.price - 1 > 0) price -= (2 * BEFORE_EXP_RATE);
+  }
+  return new Item(item.name, item.sellBy - 1, price);
+};
+
 const updateTicket = (item) => {
   return new Item(item.name, item.sellBy - 1, limit(getTicketPrice(item)));
 };
@@ -42,6 +52,7 @@ const specialItemList = {
   "Gold Coins": updateGold,
   "Fine Art": updateArt,
   "Concert Tickets": updateTicket,
+  "Flowers": updateFlowers,
 };
 
 const updatePrice = (item) => {

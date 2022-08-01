@@ -24,6 +24,24 @@ describe('Normal Items', () => {
     });
 }); 
 
+describe('Flowers', () => {
+    test('reduces price and sellBy for flower items', () => {
+        updatedItem = addItemAndUpdatePrice('Flowers', 10, 20);
+        expect(updatedItem.sellBy).toBe(9);
+        expect(updatedItem.price).toBe(18);
+    });
+
+    test('reduces price twice as fast for normal items past sellBy', () => {
+        updatedItem = addItemAndUpdatePrice('Flowers', -1, 20);
+        expect(updatedItem.price).toBe(16);
+    });
+
+    test('does not allow price to go negative', () => {
+        updatedItem = addItemAndUpdatePrice('Flowers', 10, 0);
+        expect(updatedItem.price).toBe(0);
+    });
+}); 
+
 describe('Gold Coins', () => {
     test('does not allow gold coin price to exceed 80', () => {
         updatedItem = addItemAndUpdatePrice('Gold Coins', 10, 80);
